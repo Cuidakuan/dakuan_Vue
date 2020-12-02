@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			
+		</style>
+	</head>
+	<body>
+		<div id="div1">
+			<label>ID:
+				<input type="text" v-model="id" />
+			</label>
+			<label>Name：
+				<input type="text" v-model="name" />
+			</label>
+			<input type="button" value="添加" @click="add" />
+			</label>
+			<!--
+				key应该使用number或者string
+			-->
+			<p v-for="item in list" :key="item.id">
+				<input type="checkbox" >
+				{{item.id}}---{{item.name}}
+			</p>
+			
+		</div>
+	</body>
+</html>
+<script src="../lib/vue.js"></script>
+<script type="text/javascript">
+   var vm= new Vue({
+   	el:'#div1',
+   	data:{
+   	list:[
+   	{id:1,name:'李白'},
+   	{id:2,name:'韩信'},
+   	{id:3,name:'嬴政'}
+   	]
+   	},
+    methods:{
+    	add:function(){
+    		//this.list.push({id:this.id,name:this.name});
+    		this.list.push({id:this.id,name:this.name});
+    	}
+    	
+    }
+   });
+</script>

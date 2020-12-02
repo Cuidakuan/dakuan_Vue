@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			
+		</style>
+	</head>
+	<body>
+		<div id="div1">
+			<!--需求
+				  点击按钮让h3显示，再点击h3隐藏
+			-->
+			<input type="button" value="显示h3" @click="flag=!flag" />
+			<transition enter-active-class="bounceIn" leave-active-class="bounceOut" :duration='1000'>
+				<!--使用：duration来统一设置入场和离场的时间
+					      :duration='1000'
+					分别设置入场离场时间
+					:duration="{enter:200,leave:400}"
+					
+				-->
+				<h3 v-if="flag">这是一个h3</h3>
+			</transition>
+		</div>
+	</body>
+</html>
+<script src="../lib/vue.js"></script>
+<!--导入animate.css外部文件-->
+<link rel="stylesheet" href="../lib/animate.css" />
+<script type="text/javascript">
+   var vm= new Vue({
+   	el:'#div1',
+   	data:{
+   		flag:false
+   	},
+    methods:{}
+   });
+</script>

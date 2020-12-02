@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<!--要控制的区域-->
+		<div id="div1">
+			
+			<input type="button" value="浪起来" @click="lang" />
+			<input type="button" value="别浪" @click="stop" />
+			<h4>{{msg}}</h4>
+		</div>
+		<script src="../lib/vue.js"></script>
+<script type="text/javascript">
+	//注意在vm事例中想要调用data上的数据或者方法，
+	//必须通过this.属性名或者this.方法名来调用
+	//this就表示我们new出来的VM对象
+	var vm=new Vue({
+		el:'#div1',
+		data:{
+			msg:'猥琐发育，别浪~~~',
+			intervalId:null//在data上定义定时器Id
+		},
+		methods:{
+			lang:function(){ 
+				if(this.intervalId!=null)return;
+				//alert(this.msg);
+				var _this=this
+				//setInterval(()=>{})
+				//箭头函数内部this指向外部this
+				this.intervalId= setInterval(function(){
+			    //获取到头的第一个字符
+			    var start=_this.msg.substring(0,1)
+				//获取到后面的所有字符
+				var end =_this.msg.substring(1)
+				//重新拼接得到新的字符串并赋值
+				_this.msg=end+start
+				},400);
+			},
+			stop:function(){
+				//停止定时器
+				clearInterval(this.intervalId)
+				//每当清除定时器，需要重新把intervalId置为null
+				this.intervalId=null;
+			}
+   
+		}
+		//分析
+		//1.给浪起来绑定一个单击事件v-on @
+		//2.再按钮的事件处理函数中，写线管的业务逻辑代码。拿到msgyong substring进行字符串的截取，把第一个字符截出来，放到最后一个位置即可
+		//3.为了实现点击自动截取，需要将2放到一个定时器里
+	});
+</script>
+		
+	</body>
+</html>

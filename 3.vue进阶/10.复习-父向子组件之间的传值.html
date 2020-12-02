@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../lib/vue.js"></script>
+		<style type="text/css">
+			
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<com1 v-bind:parentmsg="msg"></com1>
+		</div>
+		<template id="tmpl">
+			<div>
+				<h1>这是子元素---{{parentmsg}}</h1>
+			</div>
+		</template>
+	</body>
+</html>
+
+<script type="text/javascript">
+	
+	var com1={
+		template:'#tmpl',
+		props:['parentmsg']
+	}
+	
+   var vm= new Vue({
+   	el:'#app',
+   	data:{
+   		msg:'这是父组件中的数据，爸爸有100元'
+   	},
+    methods:{},
+    components:{
+    	com1:com1
+    }
+    
+   });
+</script>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			
+		</style>
+	</head>
+	<body>
+		<div id="div1">
+			<input type="button" value="Get请求" @click="getInfo"/>
+			<input type="button" value="Post请求" @click="PostInfo"/>
+			<input type="button" value="Jsonp请求" @click="JsonpInfo"/>
+	
+		</div>
+	</body>
+</html>
+<script src="../lib/vue.js"></script>
+<!--vue-resource依赖于vue,顺序要注意-->
+<!--<script src="../lib/resource.js"></script>-->
+<script src =" https://cdn.jsdelivr.net/npm/vue-resource@1.5.1 " > </script>
+	
+<script type="text/javascript">
+	
+   var vm= new Vue({
+   	el:'#div1',
+   	data:{},
+    methods:{
+    	getInfo:function(){
+  		this.$http.get('http://117.160.162.18:81/eams/login.action').then(function(result){
+    			console.log(result);
+    		})
+    	},
+    	PostInfo:function(){
+    		//手动发起的Post请求，默认没有表单格式，所以有的服务器处理不了
+    		//通过post方法的第三个参数，{emulateJSON:true}设置提交的内容类型为普通表单处理方式
+    		this.$http.post('http://117.160.162.18:81/eams/login.action',{},{emulateJSON:true}).then(function(result){
+    			console.log(result.body);
+    		})
+    	},
+    	JsonpInfo:function(){
+    		this.$http.jsonp('http://117.160.162.18:81/eams/login.action').then(function(result){
+    		console.log(result.body);
+    		})
+    	}
+    }
+  
+   });
+</script>

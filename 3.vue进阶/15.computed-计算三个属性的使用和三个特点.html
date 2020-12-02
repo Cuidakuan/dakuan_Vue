@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../lib/vue.js"></script>
+		<style type="text/css">
+			
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			
+			<!--分析实现-->
+			<!--1.监听到文本框数据的改变-->
+			<!--2.如何监听到文本框数据的改变？-->
+			<input type="text" v-model="firstname"/>+
+			<input type="text" v-model="lastname" />=
+			<input type="text" v-model="fullname" />
+			
+		</div>
+	</body>
+</html>
+
+<script type="text/javascript">
+   var vm= new Vue({
+   	el:'#app',
+   	data:{
+   		firstname:'',
+   		lastname:'',
+   		
+   	},
+    methods:{},
+    computed:{//在computed中可以定义一些属性，这些属性叫做【计算属性】，
+    	      //计算属性的本质，就是一个方法，只不过在使用计算属性时，把他们的名称直接当做属性来使用，并不会把计算属性当做方法来使用
+    	      
+    	      //注意：计算属性在引用的时候一定不要加小括号调用，要当成普通属性调用
+    	'fullname':function(){
+    		return this.firstname+'-'+this.lastname
+    	}
+    }
+   });
+</script>

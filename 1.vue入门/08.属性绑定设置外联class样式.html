@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+		.red{
+			color:red;
+		}
+		.thin{
+			font-weight: 100;
+			
+		}
+		.italic{
+			font-style: italic;
+		}
+		.active{
+			letter-spacing: 0.5em;
+		}
+		</style>
+	</head>
+	<body>
+		<div id="div1">
+			<!--第一种方式，直接传递一个数组-->
+			<h1 :class="['red','thin','italic']">这是一个很大的h1</h1>
+			<!--第二种方式，数组中使用三元表达式-->
+			<h1 :class="['thin','italic',flag?'active':'']">这是一个很大的h1</h1>
+			<!--第三种方式，数组中使用对象代替三元表达式提高可读性-->
+			<h1 :class="['thin','italic',{'active':flag}]">这是一个很大的h1</h1>
+			<!--第四种方式，使用v-bind绑定对象-->
+			<h1 :class="{red:true,thin:true,italic:false,active:false}">这是一个很大的h1</h1>
+		</div>
+	</body>
+</html>
+<script src="../lib/vue.js"></script>
+<script type="text/javascript">
+   var vm= new Vue({
+   	el:'#div1',
+   	data:{
+   		flag:true
+   	},
+    methods:{}
+   });
+</script>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			table{
+				
+				border-spacing: 0px;
+				width: 1300px;
+			}
+			tr,th{
+			
+				border: 1px solid black;
+				border-spacing: 0px 0px;
+			}
+			th{
+				
+			}
+		</style>
+	</head>
+	<body>
+		<div id="div1">
+			
+			<div  class="panel">
+				<div>
+					<h3>添加品牌</h3>
+				</div>
+				<div >
+					<label>
+						ID：
+						<input type="text" v-model="id" />
+					</label>
+					<label>
+						Name：
+						<input type="text" v-model="name" @keyup.f2="add"/>
+						<!--
+							自定义按键修饰符
+							@keydown  按键被按下
+							@keyup    按键被松开
+							.enter
+							.....
+							
+						-->
+					</label>
+					<!--add()加小括号  就可以传参-->
+					<input type="button" value="添加" @click="add" />
+					<label>
+						搜索关键字：
+						<input id="search" type="text" v-model="keywords" @click="search"  v-focus v-color />
+						<!--
+							自定义指令都已v-开头
+						-->
+					</label>
+				</div>
+			</div>
+			
+			
+			<br />
+			<table >
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Name</th>
+						<th>Ctime</th>
+						<th>Operation</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!--
+						之前的v-for中的数据，都是直接从data上的list中渲染出来的
+						现在，定义一个search方法，把所有的关键字，通过传参的形式，
+						             传递给search方法
+						在search方法内部，通过执行for循环，把所有符合关键字的数据，
+						          保存到一个新数组中，返回。
+					-->
+					<tr v-for="item in search(keywords)" :key="item.id">
+						<td>{{item.id}}</td>
+						<td v-text="item.name" ></td>
+						<td>{{item.ctime|dateFormat('YYYY-MM-DD')}}</td>
+						<td>
+							<a href="#" @click.prevent="del(item.id)">删除</a>
+						</td>
+						
+					</tr>
+				</tbody>
+				<tfoot>
+					
+				</tfoot>
+			</table>
+		</div>
+		<script src="../lib/vue.js"></script>
+<script type="text/javascript">
+	//自定义一个全局过滤器，事件格式化
+	Vue.filter('dateFormat',function(dateStr,pattern=""){
+		//根据给定的事件字符串，得到特定的事件
+		var dt=new Date(dateStr);
+		//yyyy-mm-dd
+		var y=dt.getFullYear()
+		var m=dt.getMonth()+1
+		var d=dt.getDate()	
+		
+		if(pattern.toLowerCase()==='YYYY-MM-DD'){
+			return `${y}-${m}-${d}`
+		}else{
+			
+		
+		var hh=dt.getHours()
+		var mm=dt.getMinutes()
+		var ss=dt.getSeconds()
+		    return `${y}-${m}-${d}-${hh}:${mm}:${ss}`
+		//return y+'-'+m+"-"+d+'-'+hh+'-'+mm+'-'+ss
+		//模板字符串
+		//return `${y}-${m}-${d}`
+		}
+	})
+	
+	//自定义全局按键修饰符
+	Vue.config.keyCodes.f2=113
+	
+	//自定义全局指令Vue.directive()
+	//参数一：指令的名称，定义时不加v-前缀
+	//参数二：是一个对象，身上有一些指令相关的函数，在特定的阶段执行相关的操作
+	Vue.directive('focus',{
+		//注意，每一个函数中第一个参数永远是el，表示被绑定了指令的那个参数
+		bind:function(el){
+			//每当元素绑定到元素上的时候，会立即执行这个bind函数，只执行一次
+			//el.focus()
+		},
+		inserted:function(el){
+			//表示元素插入到DOM中的时候，会执行inserted函数【执行一次】
+			el.focus()
+		},
+		updated:function(el){
+			//当VNode更新的时候，会执行updated，可能会触发多次
+			
+		}
+		
+	})
+	
+	//自定义一个设置字体颜色的指令
+	Vue.directive('color',{
+		bind:function(el){
+			el.style.color='red';
+		},
+		
+	})
+   var vm= new Vue({
+   	el:'#div1',
+   	data:{
+   		id:'',
+   		name:'',
+   		keywords:'',
+   		list:[
+   		{id:1,name:'奔驰',ctime:new Date() },
+   		{id:2,name:'宝马',ctime:new Date() }
+   		
+   		]
+   	},
+    methods:{
+    	add:function(){
+    		//添加的品牌
+    	 	//console.log('ok');
+            /*
+            1.获取id和name，从data中获取。
+    		2.组织出一个对象
+    		3.把这个对象调用数组的相关方法，添加到当前的data上的list中
+    		4.注意在vue中，已经实现了数据的双向绑定，当我们修改了data中的数据，
+    		   vue会默认监听到数据的改动，自动把最新的数据，应用到页面上;
+    		5.当我们意识到上面的第四部的时候，就证明打击已经入门vue了，
+    		      我们更多的是在进行VM中Model数据操作，同时在操作数据的时候，指定业务逻辑操作
+    		*/
+    		var car={id:this.id,name:this.name,ctime:new Date()}
+    		this.list.push(car)
+    		this.id=this.name=''
+    	},
+    	del:function(id){
+    	//根据id删除数据
+    	//1.根据id，找到要删除这一项的索引
+    	//2.找到了索引，直接调用数据的splice方法
+    	/*	this.list.some((item,i)=>{
+    			if(item.id==id){
+    				this.list.splice(i,1)
+    				//找到了就终止循环
+    				return true;
+    			}
+    		})*/
+    		var index=this.list.findIndex(item=>{
+    			if(item.id==id){
+    				return true;
+    			}
+    		})
+    	    //console.log(index);
+    	    this.list.splice(index,1)
+    	},
+    	search:function(keywords){
+    		//定义一个数组
+    		/*var newList=[]
+    		this.list.forEach(item=>{
+    			if(item.name.indexOf(keywords)!=-1){
+    				newList.push(item)
+    			}
+    		});
+    		return newList*/
+    		/*
+    		  注意 forEach some filter findIndex
+    		  这些都属于数组中的新方法，都会对数组中的每一项进行遍历，执行相关操作
+    		 */
+    	 var newList = this.list.filter(item=>{
+    			//if(item.name.indexOf(keywords)!=-1)
+    			//ES6中 为字符串提供了一个新方法，叫做 String.prototype.includes('要包含的字符串')
+    			//如果包含返回true，否则返回false
+    			if(item.name.includes(keywords))
+    			{
+    				return item
+    			}
+    		})
+    		return newList;
+    	}
+    }
+   });
+   //原生js操作dom获取焦点
+   //document.getElementById('search').focus();
+</script>
+	</body>
+</html>

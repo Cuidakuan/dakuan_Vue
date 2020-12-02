@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../lib/vue.js"></script>
+		<style type="text/css">
+			
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			
+			<!--分析实现-->
+			<!--1.监听到文本框数据的改变-->
+			<!--2.如何监听到文本框数据的改变？-->
+			<input type="text" v-model="firstname" />+
+			<input type="text" v-model="lastname" />=
+			<input type="text" v-model="fullname" />
+			
+		</div>
+	</body>
+</html>
+
+<script type="text/javascript">
+   var vm= new Vue({
+   	el:'#app',
+   	data:{
+   		firstname:'',
+   		lastname:'',
+   		fullname:''
+   	},
+    methods:{},
+    watch:{//适用于虚拟的东西，比如路由地址
+    		//使用这个属性，可以监视data中指定数据的变化，可以触发watch中对应的function处理函数
+    		//newVal oldVal 是新的数据，老的数据
+    		'firstname':function(newVal,oldVal){
+    			//this.fullname=this.firstname+'-'+this.lastname
+    			this.fullname=newVal+"-"+this.lastname
+    		},
+    		'lastname':function(newVal){
+    			this.fullname=this.firstname+'-'+newVal
+    		}
+    	}
+   });
+</script>

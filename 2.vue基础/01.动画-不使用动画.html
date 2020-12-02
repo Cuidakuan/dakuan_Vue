@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			
+		</style>
+	</head>
+	<body>
+		<div id="div1">
+			<!--需求
+				  点击按钮让h3显示，再点击h3隐藏
+			-->
+			<input type="button" value="显示h3" @click="flag=!flag" />
+			<h3 v-if="flag">这是一个h3</h3>
+		</div>
+	</body>
+</html>
+<script src="../lib/vue.js"></script>
+<script type="text/javascript">
+   var vm= new Vue({
+   	el:'#div1',
+   	data:{
+   		flag:false
+   	},
+    methods:{}
+   });
+</script>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			
+		</style>
+	</head>
+	<body>
+		<div id="div1">
+			<!--可以通过属性绑定v-bind的形式，把需要传递给子组件的数据
+				一属性绑定的形式，传递到子组件的内部，供子组件使用
+			-->
+			<com1 v-bind:parentmsg="msg"></com1>
+		</div>
+	</body>
+</html>
+<script src="../lib/vue.js"></script>
+<script type="text/javascript">
+   var vm= new Vue({
+   	el:'#div1',
+   	data:{
+   		msg:'123，这是父组件中的数据'
+   	},
+    methods:{},
+    
+    //定义一个私有组件
+    components:{
+    	com1:{
+    		template:'<h1>这是子组件---{{parentmsg}}</h1>',
+    		//把父组件传递过来的parentmsg属性，先在props数组中定义一下
+    		//props中的所有数据，都是通过父组件传递过来的
+    		props:['parentmsg']
+    	}
+    }
+   });
+</script>

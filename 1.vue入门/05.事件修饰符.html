@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.inner{
+				width: 200px;
+				height: 200px;
+				background-color: pink;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="div1">
+			<div class="inner" @click="div1Handler">
+				<input type="button" value="按钮" @click.stop="btnHandler" />
+				<!--
+					.stop 阻止事件冒泡事件的发生
+				-->
+			</div>
+			
+			<a href="http://www.baidu.com" @click.prevent="linkclick">跳转百度</a>
+			<!--
+				.prevent 阻止默认行为的发生
+			-->
+			
+			<!--
+				.capture 实现补货触发事件的机制
+			-->
+			
+			<!--
+				.self 只有点击当前元素的时候，才会触发事件处理函数
+		    -->
+		    
+		    <!--
+		    	.once 事件只会触发一次
+		    -->
+		</div>
+	<script src="../lib/vue.js"></script>
+	<script type="text/javascript">
+		//创建vue实例
+	   var vm= new Vue({
+	   	el:'#div1',
+	   	data:{},
+	    methods:{
+	     div1Handler:function(){
+	     	alert('这是触发了inner div的单击事件');
+	     },
+	     btnHandler:function(){
+	     	alert('helloBtn'); 	
+	     },
+	     linkclick:function(){
+	     	console.log('触发了click事件')
+	     }
+	    }
+	   });
+</script>
+	</body>
+</html>

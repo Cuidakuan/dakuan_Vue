@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			
+		</style>
+	</head>
+	<body>
+		<div id="div1">
+			<counter></counter>
+			<hr />
+			<counter></counter>
+			<hr />
+			<counter></counter>
+			<hr />
+		</div>
+			<template id="tmpl">
+				<div>
+				 <input type="button" value="点击+1" @click="increment"/>
+				 <h3>{{count}}</h3>
+				
+			</template>
+		
+	</body>
+</html>
+<script src="../lib/vue.js"></script>
+<script type="text/javascript">
+	var dataObj={count:0}
+	Vue.component('counter',{
+		template:'#tmpl',
+		data:function(){
+			return {count :0}
+		},
+		methods:{
+			increment:function(){
+				this.count++
+			}
+		}
+	})
+	
+   var vm= new Vue({
+   	el:'#div1',
+   	data:{},
+    methods:{}
+   });
+</script>

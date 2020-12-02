@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>简易计算器</title>
+		<style type="text/css">
+		
+			}
+		</style>
+	</head>
+	<body>
+		<div id="div1">
+			<input type="text" v-model="n1" />
+			<select v-model="opt" >
+				<option value="+">+</option>
+				<option value="-">-</option>
+				<option value="*">*</option>
+				<option value="/">/</option>
+			</select>
+			<input type="text" v-model="n2" />
+			<input type="button" value="=" @click="calc" />
+			<input type="text" v-model="result" />
+		</div>
+	</body>
+</html>
+<script src="../lib/vue.js"></script>
+<script type="text/javascript">
+   var vm= new Vue({
+   	el:'#div1',
+   	data:{
+   		n1:'',
+   		n2:'',
+   		result:'',
+   		opt:'+'
+   	},
+    methods:{
+    	//计算器计算方法
+    	calc:function(){
+    		/*switch(this.opt){
+    			case "+":
+    			this.result=parseInt(this.n1)+parseInt(this.n2)
+    			break;
+    			case '-':
+    			this.result=parseInt(this.n1)-parseInt(this.n2)
+    			break;
+    			case '*':
+    			this.result=parseInt(this.n1)*parseInt(this.n2)
+    			break;
+    			case '/':
+    			this.result=parseInt(this.n1)/parseInt(this.n2)
+    			break;
+    			default:
+    			this.result='数据不合法';
+    		}*/
+    		var codestr='parseInt(this.n1)'+this.opt+'parseInt(this.n2)';
+    		//eval() 函数可计算某个字符串，并执行其中的的 JavaScript 代码。
+    		this.result=eval(codestr);
+    	}
+    }
+   });
+</script>

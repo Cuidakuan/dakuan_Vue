@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			
+		</style>
+		<script src="../lib/vue.js"></script>
+	</head>
+	
+	<body>
+		<div id="div1">
+			<p >{{msg|msgFormat('疯狂')}}</p>
+			
+	    </div>
+	    
+	    <div id="div2">
+	    	<h3 v-fontcolor="'red'" v-fontSize="60">{{dt|dateFormat}}</h3>
+	    </div>
+	    
+			<script type="text/javascript">
+		    
+		   //定义一个全局过滤器--msgFormat
+		   Vue.filter('msgFormat',function(msg,arg){
+		   	//replace方法的第一个参数除了字符串，还可以写一个正则表达式
+		   return msg.replace(/单纯/g,arg)
+		   })
+		   
+		   var vm= new Vue({
+		   	el:'#div1',
+		   	data:{
+		   		msg:'我是一个单纯的少年，单纯的我，傻傻的问。。。。'
+		   	},
+		    methods:{},
+           });
+           
+           var vm2 =new Vue({
+           	el:'#div2',
+           	data:{
+           		dt:new Date()
+           	},
+           	methods:{},
+           	filters:{
+           		//定义私有过滤器  两个条件，过滤器名称和处理函数
+           		dateFormat:function(dateStr,pattern=""){
+           			var dt=new Date(dateStr);
+				//yyyy-mm-dd
+				var y=dt.getFullYear()
+				/*
+				 .padStart() 字符串(首部)填充，只应用于String类型
+				        参数一：填充后的长度
+				        参数二：以什么东西填充
+				 .PadEnd()   字符串(尾部)填充，只应用于String类型
+				        参数一：填充后的长度
+				        参数二：以什么东西填充
+				 */
+				var m=(dt.getMonth()+1).toString().padStart(2,'0')
+				var d=dt.getDate()	
+				if(pattern.toLowerCase()==='YYYY-MM-DD'){
+					return `${y}-${m}-${d}`
+				}else{
+				var hh=dt.getHours().toString().padStart(2,'0')
+				var mm=dt.getMinutes().toString().padStart(2,'0')
+				var ss=dt.getSeconds().toString().padStart(2,'0')
+				return `${y}-${m}-${d}-${hh}:${mm}:${ss}`
+		           	}
+		       }
+		     },
+		     //自定义私有指令
+		     directives:{
+		     	'color':{
+		     		bind:function(el,binding){
+		     			el.style.color=binding.value
+		     		}
+		     	},
+		     	//指令简写
+		     	'fontcolor':function(el,binding){
+		     		//注意这个function等同于把代码写到bind和updated中去
+		     		el.style.color=binding.value
+		     	},
+		     	
+		     	//指令简写
+		     	'fontsize':function(el,binding){
+		     		//注意这个function等同于把代码写到bind和updated中去
+		     		el.style.fontSize=parseInt(binding.value)+'px'
+		     	},
+		     }
+		     
+       
+           });
+		 
+		   
+		</script>
+		
+	</body>
+</html>
+

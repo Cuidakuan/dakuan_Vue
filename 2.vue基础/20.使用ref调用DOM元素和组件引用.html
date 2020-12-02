@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			
+		</style>
+	</head>
+	<body>
+		<div id="div1">
+			<input type="button" value="获取元素" @click="getElement" ref="mybtn"/>
+			<h3 id="myh3" ref="myh3">今天天气真好</h3>
+			<hr />
+			<login ref="mylogin"></login>
+		</div>
+	</body>
+</html>
+<script src="../lib/vue.js"></script>
+<script type="text/javascript">
+	var login={
+		template:'<h1>你好</h1>',
+		data(){
+			return{
+				msg:'son msg'
+			}
+		},
+		methods:{
+			show(){
+				console.log('调用了子组件的方法')
+			}
+		}
+	}
+	
+   var vm= new Vue({
+   	el:'#div1',
+   	data:{},
+    methods:{
+    	getElement(){
+    		//alert(document.getElementById('myh3').innerHTML);
+    		//ref 是英语 reference 引用
+    		//console.log(this.$refs.mylogin.msg);
+    		this.$refs.mylogin.show()
+    	}
+    },
+    components:{
+    	login
+    }
+   });
+</script>

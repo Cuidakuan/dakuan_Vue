@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+		
+			}
+		</style>
+	</head>
+	<body>
+		<div id="div1">
+			<h4>{{msg}}</h4>
+			<!--
+				v-bind 只能实现数据的单向绑定，
+				无法实现双向绑定
+				v-model 可以实现表单数据的双向绑定
+				   只能应用在表单元素中
+				   (input select checkbox textare)
+			-->
+			<!--<input type="text" style="width: 400px;" v-bind:value="msg" />-->
+			<input type="text" style="width: 400px;" v-model="msg" />
+		</div>
+	</body>
+</html>
+<script src="../lib/vue.js"></script>
+<script type="text/javascript">
+   var vm= new Vue({
+   	el:'#div1',
+   	data:{
+   		msg:'大家好，我喜欢敲代码。。。'
+   	},
+    method:{}
+   });
+</script>

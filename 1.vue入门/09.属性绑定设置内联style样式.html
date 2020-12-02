@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+				.red{
+			color:red;
+		}
+		.thin{
+			font-weight: 100;
+			
+		}
+		.italic{
+			font-style: italic;
+		}
+		.active{
+			letter-spacing: 0.5em;
+		}
+		</style>
+	</head>
+	<body>
+		<div id="div1">
+			<!--对象就是无序键值对对集合-->
+			<h1 :style="[styleObj1,styleObj2]">这是一个大大的h1</h1>
+		</div>
+	</body>
+</html>
+<script src="../lib/vue.js"></script>
+<script type="text/javascript">
+   var vm= new Vue({
+   	el:'#div1',
+   	data:{
+   		styleObj1:{color:'red','font-weight':200},
+   		styleObj2:{'font-style':'italic'}
+   	},
+    methods:{}
+   });
+</script>

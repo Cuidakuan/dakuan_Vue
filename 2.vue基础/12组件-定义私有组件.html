@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			
+		</style>
+	</head>
+	<body>
+		<div id="div1">
+			<!--
+				使用组件,把组建的名称，以HTML标签的形式，引入到页面中
+			-->
+			<mycom3></mycom3>
+			<!--<login></login>不能使用-->
+		</div>
+		<div id="div2">
+			<mycom3></mycom3>
+		    <login></login>
+		</div>
+		<!--在被控制的#div1外面定义组件的HTML木板结构-->
+		<template id="tmpl">
+			<div>
+				<h1>这是通过template元素，在外部定义的组件结构</h1>
+				<br />
+				<h4>比较好用,有代码提示和高亮</h4>
+			</div>
+		</template>
+		<template id="tmp2">
+			<h3>这是div2实例的私有组件，我在外部</h3>
+		</template>
+	</body>
+</html>
+<script src="../lib/vue.js"></script>
+<script type="text/javascript">
+	Vue.component('mycom3',{
+		template:'#tmpl'
+	})
+	
+   var vm= new Vue({
+   	el:'#div1',
+   	data:{},
+    methods:{}
+   });
+   var vm2=new Vue({
+   	el:'#div2',
+   	data:{},
+   	methods:{},
+   	filters:{},
+   	directives:{},
+    components:{
+    	//定义实例内部私有组件
+    	login:{
+    		template:'#tmp2'
+    	}
+    }, 
+   	
+   	beforeCreate:function(){},
+   	created:function(){},
+   	beforeMount:function(){},
+   	mounted:function(){},
+   	beforeUpdate:function(){},
+   	updated:function(){},
+   	beforeDestroy:function(){},
+   	destroyed:function(){}
+   	
+   	
+   })
+</script>

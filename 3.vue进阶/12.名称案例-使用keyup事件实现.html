@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../lib/vue.js"></script>
+		<style type="text/css">
+			
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			
+			<!--分析实现-->
+			<!--1.监听到文本框数据的改变-->
+			<!--2.如何监听到文本框数据的改变？-->
+			<input type="text" v-model="firstname" @keyup="getFullname" />+
+			<input type="text" v-model="lastname" @keyup="getFullname"/>=
+			<input type="text" v-model="fullname"  />
+			
+		</div>
+	</body>
+</html>
+
+<script type="text/javascript">
+   var vm= new Vue({
+   	el:'#app',
+   	data:{
+   		firstname:'',
+   		lastname:'',
+   		fullname:''
+   	},
+    methods:{//适用于做方法的调用
+    	getFullname(){
+    		this.fullname=this.firstname+"-"+this.lastname
+    	}
+    }
+   });
+</script>

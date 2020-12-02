@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.ball{
+				width: 15px;
+				height: 15px;
+				border-radius:50% ;
+				background-color: red;
+		
+			}
+		</style>
+	</head>
+	<body>
+		<div id="div1">
+			<input type="button" value="加入购物车" @click="flag=!flag" />
+			<!--
+				1.使用transition元素把小球包裹起来
+			-->
+			<transition
+				@before-enter="beforeEnter"
+				@enter="enter"
+				@after-enter="afterEnter"
+				>
+				<div class="ball" v-show="flag"></div>
+			</transition>
+			
+		</div>
+	</body>
+</html>
+<script src="../lib/vue.js"></script>
+<script type="text/javascript">
+   var vm= new Vue({
+   	el:'#div1',
+   	data:{
+   		flag:false
+   	},
+    methods:{
+    	/*
+    	 钩子函数的第一个参数：el，表示要执行的那个DOM元素，是个原生的js DOM对象，大家可以认为，el是通过document.getElementById('')这个方法获取的
+    	  */
+    	beforeEnter(el){
+    		//动画尚未开始，设置动画的起始样式
+    		el.style.transform="translate(0,0)"
+    	},
+    	enter(el,done){
+    		//这句话没有实际的作用，但是不写出不来动画效果
+    		el.offsetWidth
+    		//表示动画开始之后的样式
+    	    el.style.transform="translate(150px,450px)"
+    	    el.style.transition='all 1s ease'
+    	    
+    	    //这里的done 其实就是anterEnter函数；
+    	    //也就是说done是anterEnter的一个引用
+    	    done()
+    	},
+    	afterEnter(el){
+    	    //动画完成之后
+    	    this.flag=!this.flag
+    	}
+    }
+   });
+</script>
